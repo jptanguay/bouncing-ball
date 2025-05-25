@@ -18,6 +18,7 @@ from sklearn.model_selection import train_test_split
 
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
 
 
 import pickle
@@ -38,12 +39,13 @@ def LoadData():
 def MakeRegr():
     regr = MLPRegressor(
         random_state=None,        
-        hidden_layer_sizes=tuple([100]*4),
+        hidden_layer_sizes=tuple([300]*3),
+        activation="relu",
         learning_rate="adaptive",
-        max_iter=1000,
+        max_iter=2000,
         batch_size='auto',
         early_stopping=True,
-        n_iter_no_change=200,        
+        n_iter_no_change=1000,        
         tol=10e-4,
         verbose=True
     )
@@ -56,7 +58,8 @@ def MakeRegr():
 X,y = LoadData()
 X_train, X_test, y_train, y_test = train_test_split(X, y) 
 
-pipe = make_pipeline(MinMaxScaler(), MakeRegr() )
+#pipe = make_pipeline(MinMaxScaler(), MakeRegr() )
+pipe = make_pipeline(StandardScaler(), MakeRegr() )
 
 print("fitting...")
 pipe.fit(X_train, y_train)

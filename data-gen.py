@@ -153,7 +153,7 @@ def Save(x, y):
 # MAIN
 ################################################
  
-X,y = GenData(10000,delta_t = 10 )
+X,y = GenData(10000,delta_t = 40 )
 Save(X,y)
 
 
